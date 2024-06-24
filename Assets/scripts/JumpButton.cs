@@ -10,6 +10,7 @@ public class JumpButton : MonoBehaviour
     private Vector2 jumpForce;
     private Rigidbody2D rb2D;
     private Playercontroller controller;
+    private bool isJumping;
 
     void Start()
     {
@@ -32,15 +33,28 @@ public class JumpButton : MonoBehaviour
 
     public void jump(int value)
     {
-        if(controller.isGrounded)
+        if(controller.isGrounded )
         {
             rb2D = PlayerObject.GetComponent<Rigidbody2D>();
 
             jumpForce = new Vector2(0, forceValue * value);
             rb2D.AddForce(jumpForce, ForceMode2D.Impulse);
+            isJumping = true;
         }
        
 
+    }
+
+    public void secondJump(int value)
+    {
+        if (!controller.isGrounded && isJumping)
+        {
+            rb2D = PlayerObject.GetComponent<Rigidbody2D>();
+
+            jumpForce = new Vector2(0, forceValue * value);
+            rb2D.AddForce(jumpForce, ForceMode2D.Impulse);
+            isJumping = false;
+        }
     }
 
 

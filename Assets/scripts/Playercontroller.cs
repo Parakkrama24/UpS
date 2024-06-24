@@ -9,10 +9,13 @@ public class Playercontroller : MonoBehaviour
     private Vector2 jumpForce;
     private FixedJoystick joystick;
     [NonSerialized] public bool isGrounded;
+    [SerializeField] private ParticleSystem MovementPartical;
+    
 
     void Start()
     {
        joystick = GameObject.FindAnyObjectByType<FixedJoystick>();
+        rb2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -25,19 +28,19 @@ public class Playercontroller : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        // Example jump input, you might want to replace this with your actual input
+        
     }
 
     void FixedUpdate()
     {
-        Debug.Log(joystick.Horizontal);
         if (joystick.Horizontal >0.2 || joystick.Horizontal<-0.2)
         {
             transform.Translate(Vector2.right * joystick.Horizontal * speed * Time.deltaTime);
+            MovementPartical.Play();
         }
-        // Example ground check
+        
        
-        Debug.Log("IsGrounded: " + isGrounded);
+        //.Log("IsGrounded: " + isGrounded);
     }
 
    

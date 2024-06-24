@@ -5,18 +5,26 @@ using UnityEngine;
 public class ObstaclesSpwner : MonoBehaviour
 {
     [SerializeField] private GameObject obstaclePreFab;
-        
+    [SerializeField] private float spawnTime=2f;
+    [SerializeField] private float timeFraction=0.2f;
+
 
     private GameObject[] objectSpwner;
     private int spwnerPoint;
     void Start()
     {
         objectSpwner = GameObject.FindGameObjectsWithTag("spwnerPoints");
-        Debug.Log(objectSpwner.Length);
-        InvokeRepeating("spwner", 1f, 1.2f);
+       
+        InvokeRepeating("spwner", 1f, spawnTime);
     }
 
-   
+    private void Update()
+    {
+        spawnTime += Time.deltaTime;
+        Debug.Log(spawnTime);
+    }
+
+
     private void spwner()
     {
         spwnerPoint= Random.Range(0, objectSpwner.Length);
